@@ -5,10 +5,12 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AgGridModule } from 'ag-grid-angular';
 import { HttpClientModule } from '@angular/common/http';
+import { TestGridComponent } from './components/test-grid/test-grid.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    TestGridComponent
   ],
   imports: [
     BrowserModule,
