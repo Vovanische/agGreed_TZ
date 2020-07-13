@@ -106,18 +106,29 @@ export class TestGridComponent implements OnInit, OnDestroy {
   };
 
   getContextMenuItems(params) {
-    const result = [
-      'copy',
-      'copyWithHeaders',
-      'paste',
-      {
-        name: 'Open in new tab',
-        action: () => {
-          window.open(params.value);
+    if (params.column.userProvidedColDef.field === 'title') {
+      const result = [
+        'copy',
+        'copyWithHeaders',
+        'paste',
+        {
+          name: 'Open in new tab',
+          action: () => {
+            window.open(params.value);
+          }
         }
-      }
-    ];
-    return result;
+      ];
+      return result;
+    } else {
+      const result = [
+        'copy',
+        'copyWithHeaders',
+        'paste'
+      ];
+      return result;
+    }
+
+
   }
 
   constructor(private gridData: GridDataService, private dataParser: DataParserService) { }
