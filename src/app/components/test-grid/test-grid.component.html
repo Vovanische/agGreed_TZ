@@ -1,7 +1,15 @@
 <ag-grid-angular
-  style="width: 1000px; height: 500px;"
+  style="width: 90vw; height: 90vh;"
   class="ag-theme-alpine"
-  [rowData]="rowData | async"
+  [modules]="modules"
   [columnDefs]="columnDefs"
+  [defaultColDef]="defaultColDef"
+  [sideBar]="sideBar"
+  [rowData]="rowData"
+  [suppressRowClickSelection]="true"
+  [rowSelection]="rowSelection"
+  [allowContextMenuWithControlKey]="true"
+  [getContextMenuItems]="getContextMenuItems"
+  (gridReady)="onGridReady($event)"
 >
 </ag-grid-angular>
