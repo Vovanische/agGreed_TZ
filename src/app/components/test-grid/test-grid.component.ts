@@ -8,6 +8,9 @@ import { DataParserService } from '../../services/data-parser.service';
 import { ImageThumbnailsComponent } from '../image-thumbnails/image-thumbnails.component';
 import { VideoTitleComponent } from '../video-title/video-title.component';
 import { CheckboxHeaderComponent } from '../checkbox-header/checkbox-header.component';
+import { SelectionToolPanelComponent } from '../selection-tool-panel/selection-tool-panel.component';
+import { MenuItemDef } from 'ag-grid-community';
+import { CheckboxCellComponent } from '../checkbox-cell/checkbox-cell.component';
 
 @Component({
   selector: 'app-test-grid',
@@ -15,6 +18,9 @@ import { CheckboxHeaderComponent } from '../checkbox-header/checkbox-header.comp
   styleUrls: ['./test-grid.component.scss']
 })
 export class TestGridComponent implements OnInit, OnDestroy {
+
+  constructor(private gridData: GridDataService, private dataParser: DataParserService) { }
+
   private subscription = new Subscription();
   private gridApi;
   private gridColumnApi;
@@ -36,9 +42,9 @@ export class TestGridComponent implements OnInit, OnDestroy {
       field: 'checkbox',
       headerComponentFramework: CheckboxHeaderComponent,
       sortable: false,
-      checkboxSelection: true,
-      headerCheckboxSelection: true,
-      maxWidth: 40
+      maxWidth: 40,
+      cellRendererFramework: CheckboxCellComponent,
+      hide: true
     },
     {
       headerName: '',
@@ -51,7 +57,6 @@ export class TestGridComponent implements OnInit, OnDestroy {
     {
       headerName: 'Published on',
       field: 'publishedAt',
-      suppressColumnsToolPanel: true,
       enableValue: true,
       maxWidth: 180
     },
@@ -79,59 +84,33 @@ export class TestGridComponent implements OnInit, OnDestroy {
   private sideBar = {
     toolPanels: [
       {
-        id: 'columns',
-        labelDefault: 'Columns',
-        labelKey: 'columns',
-        iconKey: 'columns',
-        toolPanel: 'agColumnsToolPanel',
-        toolPanelParams: {
-          suppressRowGroups: true,
-          suppressValues: true,
-          suppressPivots: true,
-          suppressPivotMode: true,
-          suppressSideButtons: true,
-          suppressColumnFilter: true,
-          suppressColumnSelectAll: true,
-          suppressColumnExpandAll: true
-        }
-      },
-      {
-        id: 'filters',
-        labelDefault: 'Filters',
-        labelKey: 'filters',
-        iconKey: 'filter',
-        toolPanel: 'agFiltersToolPanel'
+        id: 'selection',
+        labelDefault: 'Selection',
+        labelKey: 'selection',
+        iconKey: 'selection',
+        toolPanel: 'selectionToolPanel'
       }
     ]
   };
+  private frameworkComponents = { selectionToolPanel: SelectionToolPanelComponent };
 
   getContextMenuItems(params) {
+    const result: Array<string | MenuItemDef> = [
+      'copy',
+      'copyWithHeaders',
+      'paste'
+    ];
+    const openInNewTabFeature: MenuItemDef = {
+      name: 'Open in new tab',
+      action: () => {
+        window.open(params.value);
+      }
+    };
     if (params.column.userProvidedColDef.field === 'title') {
-      const result = [
-        'copy',
-        'copyWithHeaders',
-        'paste',
-        {
-          name: 'Open in new tab',
-          action: () => {
-            window.open(params.value);
-          }
-        }
-      ];
-      return result;
-    } else {
-      const result = [
-        'copy',
-        'copyWithHeaders',
-        'paste'
-      ];
-      return result;
+      result.push(openInNewTabFeature);
     }
-
-
+    return result;
   }
-
-  constructor(private gridData: GridDataService, private dataParser: DataParserService) { }
 
   onGridReady(params) {
     this.gridApi = params.api;

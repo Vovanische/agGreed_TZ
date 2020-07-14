@@ -9,6 +9,8 @@ import { TestGridComponent } from './components/test-grid/test-grid.component';
 import { ImageThumbnailsComponent } from './components/image-thumbnails/image-thumbnails.component';
 import { VideoTitleComponent } from './components/video-title/video-title.component';
 import { CheckboxHeaderComponent } from './components/checkbox-header/checkbox-header.component';
+import { SelectionToolPanelComponent } from './components/selection-tool-panel/selection-tool-panel.component';
+import { CheckboxCellComponent } from './components/checkbox-cell/checkbox-cell.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +18,9 @@ import { CheckboxHeaderComponent } from './components/checkbox-header/checkbox-h
     TestGridComponent,
     ImageThumbnailsComponent,
     VideoTitleComponent,
-    CheckboxHeaderComponent
+    CheckboxHeaderComponent,
+    SelectionToolPanelComponent,
+    CheckboxCellComponent
   ],
   imports: [
     BrowserModule,
@@ -25,7 +29,9 @@ import { CheckboxHeaderComponent } from './components/checkbox-header/checkbox-h
     AgGridModule.withComponents([
       ImageThumbnailsComponent,
       VideoTitleComponent,
-      CheckboxHeaderComponent
+      CheckboxHeaderComponent,
+      SelectionToolPanelComponent,
+      CheckboxCellComponent
     ])
   ],
   providers: [],

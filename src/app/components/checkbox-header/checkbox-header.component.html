@@ -1,1 +1,2 @@
-<div class="ag-header-select-all"></div>
+<input type="checkbox" #headerCheckbox class="ag-header-select-all"
+       (change)="onSelectedStateChange(headerCheckbox.checked)" [checked]="checkboxState$.value">
