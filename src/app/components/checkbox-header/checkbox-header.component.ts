@@ -1,36 +1,28 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { IHeaderParams } from 'ag-grid-community';
-import { BehaviorSubject, fromEvent, Subscription } from 'rxjs';
-import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-checkbox-header',
   templateUrl: './checkbox-header.component.html',
   styleUrls: ['./checkbox-header.component.scss']
 })
-export class CheckboxHeaderComponent implements OnDestroy {
-  public static state$ = new BehaviorSubject<boolean>(false);
-
-  public get checkboxState$() {
-    return CheckboxHeaderComponent.state$;
-  }
-
+export class CheckboxHeaderComponent {
   params: IHeaderParams;
-  private subscription = new Subscription();
   private gridApi;
+  private headerCheckboxState;
 
-  agInit(params: IHeaderParams) {
+  agInit(params: IHeaderParams): void {
     this.params = params;
     this.gridApi = params.api;
-
-    this.subscription.add(
-      fromEvent(this.gridApi, 'selectionChanged')
-        .pipe(map(() => this.gridApi.getDisplayedRowCount() === this.gridApi.getSelectedRows().length))
-        .subscribe(CheckboxHeaderComponent.state$)
-    );
+    this.gridApi.addEventListener('selectionChanged',
+      this.checkHeaderSelection.bind(this));
   }
 
-  onSelectedStateChange(checkboxState: boolean) {
+  checkHeaderSelection(): void {
+    this.headerCheckboxState = (this.gridApi.getDisplayedRowCount() === this.gridApi.getSelectedRows().length);
+  }
+
+  onSelectedStateChange(checkboxState: boolean): void {
     if (checkboxState) {
       this.gridApi.selectAll();
     } else {
@@ -38,9 +30,4 @@ export class CheckboxHeaderComponent implements OnDestroy {
     }
     this.gridApi.refreshCells();
   }
-
-  ngOnDestroy() {
-    this.subscription.unsubscribe();
-  }
-
 }

@@ -12,7 +12,7 @@ export class SelectionToolPanelComponent implements IToolPanel {
   public selectedRowsCount: number;
   private checkboxColumnPropertyHide: boolean;
 
-  agInit(params: IToolPanelParams) {
+  agInit(params: IToolPanelParams): void {
     this.params = params;
     this.totalRowCount = 0;
     this.selectedRowsCount = 0;
@@ -31,25 +31,23 @@ export class SelectionToolPanelComponent implements IToolPanel {
       'selectionChanged',
       this.updateRowsCount.bind(this)
     );
-}
-
-  updateRowsCount() {
-    this.totalRowCount = this.params.api.getDisplayedRowCount();
-    this.selectedRowsCount = this.params.api.getSelectedRows().length;
-    console.log(this.totalRowCount);
-    console.log(this.selectedRowsCount);
   }
 
-  setCheckboxColumnPropertyHide() {
+  updateRowsCount(): void {
+    this.totalRowCount = this.params.api.getDisplayedRowCount();
+    this.selectedRowsCount = this.params.api.getSelectedRows().length;
+  }
+
+  setCheckboxColumnPropertyHide(): void {
     this.checkboxColumnPropertyHide = this.params.api.getColumnDef('checkbox').hide;
   }
 
-  selectionMode() {
+  selectionMode(): void {
     if (this.checkboxColumnPropertyHide) {
       this.params.columnApi.setColumnVisible('checkbox', true);
       this.checkboxColumnPropertyHide = !this.checkboxColumnPropertyHide;
     } else {
-      this.params.columnApi.hideColumn('checkbox', true);
+      this.params.columnApi.setColumnVisible('checkbox', false);
       this.checkboxColumnPropertyHide = !this.checkboxColumnPropertyHide;
       this.params.api.deselectAll();
     }

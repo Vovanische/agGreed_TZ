@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { IRowData } from '../../models/i-row-data.';
 import { ICellRendererParams } from 'ag-grid-community';
 
 @Component({
@@ -10,7 +9,11 @@ import { ICellRendererParams } from 'ag-grid-community';
 export class ImageThumbnailsComponent {
   params: ICellRendererParams;
 
-  agInit(params: ICellRendererParams) {
+  get value() {
+    return this.params && this.params.value;
+  }
+
+  agInit(params: ICellRendererParams): void {
     this.params = params;
   }
 

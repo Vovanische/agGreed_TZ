@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { ICellRendererParams } from 'ag-grid-community';
 
 @Component({
   selector: 'app-video-title',
@@ -6,9 +7,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./video-title.component.scss']
 })
 export class VideoTitleComponent {
-  params: any;
+  params: ICellRendererParams;
 
-  agInit(params: any) {
+  get value(): string {
+    return this.params && this.params.value;
+  }
+
+  agInit(params: ICellRendererParams): void {
     this.params = params;
   }
 

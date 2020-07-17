@@ -1,7 +1,5 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { ICellRendererParams } from 'ag-grid-community';
-import { BehaviorSubject, fromEvent, Subscription } from 'rxjs';
-import { map, startWith } from 'rxjs/operators';
 import { ICellRendererAngularComp } from 'ag-grid-angular';
 
 @Component({
@@ -9,26 +7,22 @@ import { ICellRendererAngularComp } from 'ag-grid-angular';
   templateUrl: './checkbox-cell.component.html',
   styleUrls: ['./checkbox-cell.component.scss']
 })
-export class CheckboxCellComponent implements ICellRendererAngularComp, OnDestroy {
-  public checkboxState$ = new BehaviorSubject<boolean>(false);
+export class CheckboxCellComponent implements ICellRendererAngularComp {
 
   private params: ICellRendererParams;
-  private subscription = new Subscription();
+  public rowCheckboxState: boolean;
 
-  agInit(params: ICellRendererParams) {
+  agInit(params: ICellRendererParams): void {
     this.params = params;
-
-    this.subscription.add(
-      fromEvent(params.api, 'selectionChanged')
-        .pipe(
-          map(() => this.params.node.isSelected()),
-          startWith(this.params.node.isSelected())
-        )
-        .subscribe(this.checkboxState$)
-    );
+    this.params.api.addEventListener('selectionChanged',
+      this.checkRowSelection.bind(this));
   }
 
-  onRowCheckboxStateChange(checkboxState: boolean) {
+  checkRowSelection(): void {
+    this.rowCheckboxState = this.params.node.isSelected();
+  }
+
+  onRowCheckboxStateChange(checkboxState: boolean): void {
     if (checkboxState) {
       this.params.node.setSelected(true);
     } else {
@@ -36,11 +30,7 @@ export class CheckboxCellComponent implements ICellRendererAngularComp, OnDestro
     }
   }
 
-  ngOnDestroy() {
-    this.subscription.unsubscribe();
-  }
-
-  refresh() {
+  refresh(): boolean {
     return false;
   }
 }

@@ -22,4 +22,10 @@ describe('SelectionToolPanelComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('refresh() should return false', () => {
+    component.refresh();
+    expect(component.refresh()).toBe(false);
+  });
+
 });

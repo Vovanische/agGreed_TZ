@@ -4,13 +4,14 @@ import { catchError } from 'rxjs/operators';
 import { AllModules } from '@ag-grid-enterprise/all-modules/dist/ag-grid-enterprise.js';
 
 import { GridDataService } from '../../services/grid-data.service';
-import { DataParserService } from '../../services/data-parser.service';
+import { MapDataToRowModelService } from '../../services/map-data-to-row-model.service';
 import { ImageThumbnailsComponent } from '../image-thumbnails/image-thumbnails.component';
 import { VideoTitleComponent } from '../video-title/video-title.component';
 import { CheckboxHeaderComponent } from '../checkbox-header/checkbox-header.component';
 import { SelectionToolPanelComponent } from '../selection-tool-panel/selection-tool-panel.component';
 import { MenuItemDef } from 'ag-grid-community';
 import { CheckboxCellComponent } from '../checkbox-cell/checkbox-cell.component';
+import { LinkService } from '../../services/link.service';
 
 @Component({
   selector: 'app-test-grid',
@@ -19,25 +20,16 @@ import { CheckboxCellComponent } from '../checkbox-cell/checkbox-cell.component'
 })
 export class TestGridComponent implements OnInit, OnDestroy {
 
-  constructor(private gridData: GridDataService, private dataParser: DataParserService) { }
+  constructor(private gridData: GridDataService,
+              private mapDataToRowModel: MapDataToRowModelService,
+              private useLink: LinkService) { }
 
   private subscription = new Subscription();
-  private gridApi;
-  private gridColumnApi;
-  private rowSelection = 'multiple';
-  private modules = AllModules;
+  public rowSelection = 'multiple';
+  public modules = AllModules;
+  public rowData: any;
 
-  // private columnDefs;
-  // private defaultColDef;
-  // private sideBar: SideBarDef;
-  // private rowData: [];
-  // private modules: Module[] = [
-  //   SideBarDef,
-  //   ToolPanelDef
-  // ] ;
-
-  private rowData: any;
-  private columnDefs = [
+  public columnDefs = [
     {
       field: 'checkbox',
       headerComponentFramework: CheckboxHeaderComponent,
@@ -71,7 +63,7 @@ export class TestGridComponent implements OnInit, OnDestroy {
       field: 'description'
     }
   ];
-  private defaultColDef = {
+  public defaultColDef = {
     flex: true,
     minWidth: 70,
     sortable: true,
@@ -81,7 +73,7 @@ export class TestGridComponent implements OnInit, OnDestroy {
     enablePivot: true
   };
 
-  private sideBar = {
+  public sideBar = {
     toolPanels: [
       {
         id: 'selection',
@@ -92,47 +84,39 @@ export class TestGridComponent implements OnInit, OnDestroy {
       }
     ]
   };
-  private frameworkComponents = { selectionToolPanel: SelectionToolPanelComponent };
+  public frameworkComponents = { selectionToolPanel: SelectionToolPanelComponent };
 
-  getContextMenuItems(params) {
+  getContextMenuItems = (params): Array<string | MenuItemDef> => {
     const result: Array<string | MenuItemDef> = [
       'copy',
       'copyWithHeaders',
       'paste'
     ];
-    const openInNewTabFeature: MenuItemDef = {
-      name: 'Open in new tab',
-      action: () => {
-        window.open(params.value);
-      }
-    };
-    if (params.column.userProvidedColDef.field === 'title') {
+    if (params.column.getColId() === 'title') {
+      const openInNewTabFeature: MenuItemDef = {
+        name: 'Open in new tab',
+        action: () => {
+          this.useLink.openInNewTab(params.value);
+        }
+      };
       result.push(openInNewTabFeature);
     }
     return result;
   }
 
-  onGridReady(params) {
-    this.gridApi = params.api;
-    this.gridColumnApi = params.columnApi;
-  }
-
-  ngOnInit() {
-    console.log('OnInit');
+  ngOnInit(): void {
     const rowDataSubscription = this.gridData.getData().pipe(
       catchError(error => {
         console.log('Error', error);
         return throwError(error);
       })
     ).subscribe((sourceData) => {
-      console.log(sourceData);
-      console.log(this.dataParser.createRows(sourceData));
-      this.rowData = this.dataParser.createRows(sourceData);
+      this.rowData = this.mapDataToRowModel.createRows(sourceData);
     });
     this.subscription.add(rowDataSubscription);
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }
 }
