@@ -1,15 +1,8 @@
 <ag-grid-angular
-  style="width: 90vw; height: 90vh;"
-  class="ag-theme-alpine"
+  class="ag-theme-alpine v-table-size"
   [modules]="modules"
-  [columnDefs]="columnDefs"
-  [defaultColDef]="defaultColDef"
-  [sideBar]="sideBar"
   [rowData]="rowData"
-  [suppressRowClickSelection]="true"
-  [rowSelection]="rowSelection"
-  [allowContextMenuWithControlKey]="true"
+  [gridOptions]="gridOptions"
   [getContextMenuItems]="getContextMenuItems"
-  [frameworkComponents]="frameworkComponents"
 >
 </ag-grid-angular>

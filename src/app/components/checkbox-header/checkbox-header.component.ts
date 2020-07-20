@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IHeaderParams } from 'ag-grid-community';
+import { GridApi, IHeaderParams } from 'ag-grid-community';
 
 @Component({
   selector: 'app-checkbox-header',
@@ -8,8 +8,8 @@ import { IHeaderParams } from 'ag-grid-community';
 })
 export class CheckboxHeaderComponent {
   params: IHeaderParams;
-  private gridApi;
-  private headerCheckboxState;
+  public gridApi: GridApi;
+  public headerCheckboxState: boolean;
 
   agInit(params: IHeaderParams): void {
     this.params = params;

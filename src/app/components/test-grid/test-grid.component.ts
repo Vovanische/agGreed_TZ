@@ -9,7 +9,14 @@ import { ImageThumbnailsComponent } from '../image-thumbnails/image-thumbnails.c
 import { VideoTitleComponent } from '../video-title/video-title.component';
 import { CheckboxHeaderComponent } from '../checkbox-header/checkbox-header.component';
 import { SelectionToolPanelComponent } from '../selection-tool-panel/selection-tool-panel.component';
-import { MenuItemDef } from 'ag-grid-community';
+import {
+  ColDef,
+  GetContextMenuItems,
+  GetContextMenuItemsParams,
+  GridOptions,
+  MenuItemDef, Module,
+  SideBarDef
+} from 'ag-grid-community';
 import { CheckboxCellComponent } from '../checkbox-cell/checkbox-cell.component';
 import { LinkService } from '../../services/link.service';
 
@@ -26,21 +33,22 @@ export class TestGridComponent implements OnInit, OnDestroy {
 
   private subscription = new Subscription();
   public rowSelection = 'multiple';
-  public modules = AllModules;
-  public rowData: any;
+  public modules: Module[] = AllModules;
+  public rowData: any[];
 
-  public columnDefs = [
+  public columnDefs: ColDef[] = [
     {
       field: 'checkbox',
       headerComponentFramework: CheckboxHeaderComponent,
+      colId: 'checkbox',
       sortable: false,
       maxWidth: 40,
-      cellRendererFramework: CheckboxCellComponent,
-      hide: true
+      cellRendererFramework: CheckboxCellComponent
     },
     {
       headerName: '',
       field: 'thumbnails',
+      colId: 'thumbnails',
       minWidth: 70,
       maxWidth: 70,
       sortable: false,
@@ -49,22 +57,25 @@ export class TestGridComponent implements OnInit, OnDestroy {
     {
       headerName: 'Published on',
       field: 'publishedAt',
+      colId: 'publishedAt',
       enableValue: true,
       maxWidth: 180
     },
     {
       headerName: 'Video Title',
       field: 'title',
+      colId: 'title',
       maxWidth: 200,
       cellRendererFramework: VideoTitleComponent
     },
     {
       headerName: 'Description',
-      field: 'description'
+      field: 'description',
+      colId: 'title'
     }
   ];
-  public defaultColDef = {
-    flex: true,
+  public defaultColDef: ColDef = {
+    flex: 1,
     minWidth: 70,
     sortable: true,
     autoHeight: true,
@@ -73,7 +84,7 @@ export class TestGridComponent implements OnInit, OnDestroy {
     enablePivot: true
   };
 
-  public sideBar = {
+  public sideBar: SideBarDef = {
     toolPanels: [
       {
         id: 'selection',
@@ -84,9 +95,22 @@ export class TestGridComponent implements OnInit, OnDestroy {
       }
     ]
   };
-  public frameworkComponents = { selectionToolPanel: SelectionToolPanelComponent };
 
-  getContextMenuItems = (params): Array<string | MenuItemDef> => {
+  public suppressRowClickSelection = true;
+  public allowContextMenuWithControlKey = true;
+  public frameworkComponents = { selectionToolPanel: SelectionToolPanelComponent };
+  public gridOptions: GridOptions = {
+    columnDefs: this.columnDefs,
+    rowData: this.rowData,
+    rowSelection: this.rowSelection,
+    sideBar: this.sideBar,
+    defaultColDef: this.defaultColDef,
+    suppressRowClickSelection: this.suppressRowClickSelection,
+    allowContextMenuWithControlKey: this.allowContextMenuWithControlKey,
+    frameworkComponents: this.frameworkComponents
+  };
+
+  getContextMenuItems: GetContextMenuItems = (params: GetContextMenuItemsParams): Array<string | MenuItemDef> => {
     const result: Array<string | MenuItemDef> = [
       'copy',
       'copyWithHeaders',
@@ -100,9 +124,11 @@ export class TestGridComponent implements OnInit, OnDestroy {
         }
       };
       result.push(openInNewTabFeature);
+      console.log(params);
+      console.log(this.gridOptions);
     }
     return result;
-  }
+  };
 
   ngOnInit(): void {
     const rowDataSubscription = this.gridData.getData().pipe(
@@ -112,9 +138,12 @@ export class TestGridComponent implements OnInit, OnDestroy {
       })
     ).subscribe((sourceData) => {
       this.rowData = this.mapDataToRowModel.createRows(sourceData);
+      this.gridOptions.rowData = this.mapDataToRowModel.createRows(sourceData);
+      console.log(this.gridOptions.rowData);
     });
     this.subscription.add(rowDataSubscription);
   }
+
 
   ngOnDestroy(): void {
     this.subscription.unsubscribe();

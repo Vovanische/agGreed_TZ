@@ -58,4 +58,8 @@ describe('TestGridComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('grid API is available', () => {
+    expect(component.gridOptions.api).toBeTruthy();
+  });
 });
