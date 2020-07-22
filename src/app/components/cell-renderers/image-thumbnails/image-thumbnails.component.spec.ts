@@ -1,16 +1,18 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ImageThumbnailsComponent } from './image-thumbnails.component';
+import { ICellRendererParams } from 'ag-grid-community';
 
 describe('ImageThumbnailsComponent', () => {
   let component: ImageThumbnailsComponent;
   let fixture: ComponentFixture<ImageThumbnailsComponent>;
+  const params = { value: 'image' };
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ImageThumbnailsComponent ]
+      declarations: [ImageThumbnailsComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
@@ -21,5 +23,14 @@ describe('ImageThumbnailsComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('value should be falsy before changes', () => {
+    expect(component.value).toBeFalsy();
+  });
+
+  it('value() should return correct value', () => {
+    component.agInit(params as unknown as ICellRendererParams);
+    expect(component.value).toEqual(params.value);
   });
 });

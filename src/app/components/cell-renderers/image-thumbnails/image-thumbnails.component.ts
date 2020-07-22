@@ -1,15 +1,16 @@
 import { Component } from '@angular/core';
 import { ICellRendererParams } from 'ag-grid-community';
+import { ICellRendererAngularComp } from 'ag-grid-angular';
 
 @Component({
   selector: 'app-image-thumbnails',
   templateUrl: './image-thumbnails.component.html',
   styleUrls: ['./image-thumbnails.component.scss']
 })
-export class ImageThumbnailsComponent {
+export class ImageThumbnailsComponent implements ICellRendererAngularComp {
   params: ICellRendererParams;
 
-  get value() {
+  get value(): string {
     return this.params && this.params.value;
   }
 
@@ -17,4 +18,7 @@ export class ImageThumbnailsComponent {
     this.params = params;
   }
 
+  refresh(): boolean {
+    return false;
+  }
 }

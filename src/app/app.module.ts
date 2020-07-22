@@ -5,12 +5,12 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AgGridModule } from 'ag-grid-angular';
 import { HttpClientModule } from '@angular/common/http';
-import { TestGridComponent } from './components/test-grid/test-grid.component';
-import { ImageThumbnailsComponent } from './components/image-thumbnails/image-thumbnails.component';
-import { VideoTitleComponent } from './components/video-title/video-title.component';
-import { CheckboxHeaderComponent } from './components/checkbox-header/checkbox-header.component';
-import { SelectionToolPanelComponent } from './components/selection-tool-panel/selection-tool-panel.component';
-import { CheckboxCellComponent } from './components/checkbox-cell/checkbox-cell.component';
+import { TestGridComponent } from './components/test-grid.component';
+import { ImageThumbnailsComponent } from './components/cell-renderers/image-thumbnails/image-thumbnails.component';
+import { VideoTitleComponent } from './components/cell-renderers/video-title/video-title.component';
+import { CheckboxHeaderComponent } from './components/headers/checkbox-header/checkbox-header.component';
+import { SelectionToolPanelComponent } from './components/tool-panels/selection-tool-panel/selection-tool-panel.component';
+import { CheckboxCellComponent } from './components/cell-renderers/checkbox-cell/checkbox-cell.component';
 
 @NgModule({
   declarations: [

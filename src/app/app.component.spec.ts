@@ -4,7 +4,7 @@ import { AgGridModule } from 'ag-grid-angular';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 import { AppComponent } from './app.component';
-import { TestGridComponent } from './components/test-grid/test-grid.component';
+import { TestGridComponent } from './components/test-grid.component';
 
 describe('AppComponent', () => {
   beforeEach(async(() => {

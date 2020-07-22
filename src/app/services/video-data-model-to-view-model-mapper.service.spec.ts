@@ -1,19 +1,20 @@
 import { TestBed } from '@angular/core/testing';
 
-import { MapDataToRowModelService } from './map-data-to-row-model.service';
+import { VideoDataModelToViewModelMapperService } from './video-data-model-to-view-model-mapper.service';
 import { IRowData } from '../models/i-row-data.';
+import { IMainData } from '../models/i-main-data';
 
 describe('DataParserService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
   it('should be created', () => {
-    const service: MapDataToRowModelService = TestBed.get(MapDataToRowModelService);
+    const service: VideoDataModelToViewModelMapperService = TestBed.get(VideoDataModelToViewModelMapperService);
     expect(service).toBeTruthy();
   });
 
   it('should return correct data', () => {
-    const service: MapDataToRowModelService = TestBed.get(MapDataToRowModelService);
-    const testData = {
+    const service: VideoDataModelToViewModelMapperService = TestBed.get(VideoDataModelToViewModelMapperService);
+    const testData: IMainData = {
       items: [
         {
           id: {
@@ -41,7 +42,7 @@ describe('DataParserService', () => {
         description: 'Music video by Lil Wayne performing John. (C) 2011 Cash Money Records Inc.'
       }
     ];
-    expect(service.createRows(testData)).toEqual(response);
+    expect(service.mapDataToRows(testData)).toEqual(response);
   });
 
 });

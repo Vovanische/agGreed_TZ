@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
 })
 export class LinkService {
 
-  openInNewTab(link: string) {
+  openInNewTab(link: string): Window | null {
     return window.open(link);
   }
 }

@@ -1,24 +1,23 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { GridApi, IHeaderParams } from 'ag-grid-community';
+import { IHeaderAngularComp } from 'ag-grid-angular';
 
 @Component({
   selector: 'app-checkbox-header',
   templateUrl: './checkbox-header.component.html',
   styleUrls: ['./checkbox-header.component.scss']
 })
-export class CheckboxHeaderComponent {
-  params: IHeaderParams;
-  public gridApi: GridApi;
+export class CheckboxHeaderComponent implements IHeaderAngularComp, OnDestroy {
+  private gridApi: GridApi;
   public headerCheckboxState: boolean;
 
   agInit(params: IHeaderParams): void {
-    this.params = params;
     this.gridApi = params.api;
     this.gridApi.addEventListener('selectionChanged',
-      this.checkHeaderSelection.bind(this));
+      this.checkHeaderSelection);
   }
 
-  checkHeaderSelection(): void {
+  checkHeaderSelection = (): void => {
     this.headerCheckboxState = (this.gridApi.getDisplayedRowCount() === this.gridApi.getSelectedRows().length);
   }
 
@@ -29,5 +28,10 @@ export class CheckboxHeaderComponent {
       this.gridApi.deselectAll();
     }
     this.gridApi.refreshCells();
+  }
+
+  ngOnDestroy(): void {
+    this.gridApi.removeEventListener('selectionChanged',
+      this.checkHeaderSelection);
   }
 }

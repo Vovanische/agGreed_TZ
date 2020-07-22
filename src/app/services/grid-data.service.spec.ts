@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 import { GridDataService } from './grid-data.service';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('GridDataService', () => {
   beforeEach(() => TestBed.configureTestingModule({
