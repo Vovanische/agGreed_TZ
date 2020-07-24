@@ -1,8 +1,8 @@
 import { TestBed } from '@angular/core/testing';
 
 import { VideoDataModelToViewModelMapperService } from './video-data-model-to-view-model-mapper.service';
-import { IRowData } from '../models/i-row-data.';
-import { IMainData } from '../models/i-main-data';
+import { IVideoViewModel } from '../models/i-video-view-model';
+import { IVideoDataModel } from '../models/i-video-data-model';
 
 describe('DataParserService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
@@ -14,7 +14,7 @@ describe('DataParserService', () => {
 
   it('should return correct data', () => {
     const service: VideoDataModelToViewModelMapperService = TestBed.get(VideoDataModelToViewModelMapperService);
-    const testData: IMainData = {
+    const testData: IVideoDataModel = {
       items: [
         {
           id: {
@@ -34,7 +34,7 @@ describe('DataParserService', () => {
     };
 
     const baseLinkPart = 'https://www.youtube.com/watch?v=';
-    const response: IRowData[] = [
+    const response: IVideoViewModel[] = [
       {
         thumbnails: 'https://i.ytimg.com/vi/3fumBcKC6RE/default.jpg',
         publishedAt: '2011-05-12T20:01:31Z',
@@ -42,7 +42,7 @@ describe('DataParserService', () => {
         description: 'Music video by Lil Wayne performing John. (C) 2011 Cash Money Records Inc.'
       }
     ];
-    expect(service.mapDataToRows(testData)).toEqual(response);
+    expect(service.map(testData)).toEqual(response);
   });
 
 });

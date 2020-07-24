@@ -8,6 +8,7 @@ describe('CheckboxCellComponent', () => {
   let fixture: ComponentFixture<CheckboxCellComponent>;
   let api: GridApi;
   let node: RowNode;
+  let params: ICellRendererParams;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -23,7 +24,8 @@ describe('CheckboxCellComponent', () => {
     component = fixture.componentInstance;
     api = jasmine.createSpyObj('api', ['addEventListener', 'removeEventListener']);
     node = jasmine.createSpyObj('node', ['setSelected', 'isSelected']);
-    component.agInit({ api, node } as unknown as ICellRendererParams);
+    params = { api, node } as unknown as ICellRendererParams;
+    component.agInit(params);
     fixture.detectChanges();
   });
 

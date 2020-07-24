@@ -9,7 +9,7 @@ import { IHeaderAngularComp } from 'ag-grid-angular';
 })
 export class CheckboxHeaderComponent implements IHeaderAngularComp, OnDestroy {
   private gridApi: GridApi;
-  public headerCheckboxState: boolean;
+  public headerCheckboxState = false;
 
   agInit(params: IHeaderParams): void {
     this.gridApi = params.api;
@@ -17,7 +17,7 @@ export class CheckboxHeaderComponent implements IHeaderAngularComp, OnDestroy {
       this.checkHeaderSelection);
   }
 
-  checkHeaderSelection = (): void => {
+  private checkHeaderSelection = (): void => {
     this.headerCheckboxState = (this.gridApi.getDisplayedRowCount() === this.gridApi.getSelectedRows().length);
   }
 

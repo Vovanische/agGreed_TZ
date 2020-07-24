@@ -73,7 +73,7 @@ describe('TestGridComponent', () => {
       .toEqual(commonResult);
   });
 
-  it('getContextMenuItems() should return title contextmenu', () => {
+  it('getContextMenuItems() should return contextmenu for title', () => {
     const value = 'https://i.ytimg.com/vi/3fumBcKC6RE/default.jpg';
     column.getColId.and.returnValue('title');
     const getContextMenuItemsCall: Array<string | MenuItemDef> =

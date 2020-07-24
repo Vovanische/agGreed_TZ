@@ -1,4 +1,4 @@
-export interface IMainData {
+export interface IVideoDataModel {
   items: [
     {
       id: {

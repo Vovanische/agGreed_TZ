@@ -11,7 +11,7 @@ export class CheckboxCellComponent implements ICellRendererAngularComp, OnDestro
 
   private api: GridApi;
   private node: RowNode;
-  public rowCheckboxState: boolean;
+  public rowCheckboxState = false;
 
   agInit(params: ICellRendererParams): void {
     this.api = params.api;
@@ -20,7 +20,7 @@ export class CheckboxCellComponent implements ICellRendererAngularComp, OnDestro
       this.checkRowSelection);
   }
 
-  checkRowSelection = (): void => {
+  private checkRowSelection = (): void => {
     this.rowCheckboxState = this.node.isSelected();
   }
 
