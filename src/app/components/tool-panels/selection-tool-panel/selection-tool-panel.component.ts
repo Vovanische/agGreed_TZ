@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { ColumnApi, GridApi, IToolPanel, IToolPanelParams } from 'ag-grid-community';
 import { CheckboxCol } from '../../../constants/col-definitions/checkbox-column';
 
@@ -11,18 +11,13 @@ export class SelectionToolPanelComponent implements IToolPanel, OnDestroy {
 
   private gridApi: GridApi;
   private columnAPi: ColumnApi;
-  private checkboxColumnPropertyHide: boolean;
+  private checkboxColumnPropertyHide: boolean = CheckboxCol.hide;
   public totalRowCount: number;
   public selectedRowsCount: number;
 
   agInit(params: IToolPanelParams): void {
     this.gridApi = params.api;
     this.columnAPi = params.columnApi;
-
-    this.gridApi.addEventListener(
-      'gridReady',
-      this.getValueOfPropertyHide);
-
     this.gridApi.addEventListener(
       'modelUpdated',
       this.updateRowsCount);
@@ -37,11 +32,6 @@ export class SelectionToolPanelComponent implements IToolPanel, OnDestroy {
     this.selectedRowsCount = this.gridApi.getSelectedRows().length;
   }
 
-  getValueOfPropertyHide = (): void => {
-    const checkboxColId = CheckboxCol.colId;
-    this.checkboxColumnPropertyHide = this.gridApi.getColumnDef(checkboxColId).hide;
-  }
-
   switchSelectionMode(): void {
     const checkboxColId = CheckboxCol.colId;
     this.checkboxColumnPropertyHide = !this.checkboxColumnPropertyHide;
@@ -54,10 +44,6 @@ export class SelectionToolPanelComponent implements IToolPanel, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.gridApi.removeEventListener(
-      'gridReady',
-      this.getValueOfPropertyHide
-    );
     this.gridApi.removeEventListener(
       'modelUpdated',
       this.updateRowsCount);

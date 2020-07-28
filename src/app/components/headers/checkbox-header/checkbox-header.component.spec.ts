@@ -2,11 +2,13 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CheckboxHeaderComponent } from './checkbox-header.component';
 import { GridApi, IHeaderParams } from 'ag-grid-community';
+import { Publisher } from '../../../tests-supply/publisher';
 
 describe('CheckboxHeaderComponent', () => {
   let component: CheckboxHeaderComponent;
   let fixture: ComponentFixture<CheckboxHeaderComponent>;
   let api: GridApi;
+  let params: IHeaderParams;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -20,9 +22,17 @@ describe('CheckboxHeaderComponent', () => {
     component = fixture.componentInstance;
     api = jasmine.createSpyObj(
       'api',
-      ['selectAll', 'deselectAll', 'refreshCells', 'addEventListener', 'removeEventListener',
-        'getDisplayedRowCount', 'getSelectedRows']);
-    component.agInit({ api } as unknown as IHeaderParams);
+      {
+        selectAll: '',
+        deselectAll: '',
+        refreshCells: '',
+        addEventListener: '',
+        removeEventListener: '',
+        getDisplayedRowCount: 1,
+        getSelectedRows: [1]
+      });
+    params = { api } as unknown as IHeaderParams;
+    component.agInit(params);
     fixture.detectChanges();
   });
 
@@ -48,4 +58,13 @@ describe('CheckboxHeaderComponent', () => {
     component.onSelectedStateChange(false);
     expect(api.refreshCells).toHaveBeenCalled();
   });
+
+  it('rowCheckboxState should become true on event selectionChanged ', () => {
+    const publisher = new Publisher();
+    api.addEventListener = (eventName, handler) => publisher.subscribe(eventName, handler);
+    component.agInit(params);
+    publisher.emit('selectionChanged');
+    expect(component.headerCheckboxState).toBe(true);
+  });
+
 });
