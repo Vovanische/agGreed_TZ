@@ -11,13 +11,15 @@ export class SelectionToolPanelComponent implements IToolPanel, OnDestroy {
 
   private gridApi: GridApi;
   private columnAPi: ColumnApi;
-  private checkboxColumnPropertyHide: boolean = CheckboxCol.hide;
+  public checkboxColumnPropertyHide: boolean = CheckboxCol.hide;
   public totalRowCount: number;
   public selectedRowsCount: number;
 
   agInit(params: IToolPanelParams): void {
     this.gridApi = params.api;
     this.columnAPi = params.columnApi;
+    this.totalRowCount = 0;
+    this.selectedRowsCount = 0;
     this.gridApi.addEventListener(
       'modelUpdated',
       this.updateRowsCount);
@@ -27,15 +29,15 @@ export class SelectionToolPanelComponent implements IToolPanel, OnDestroy {
       this.updateRowsCount);
   }
 
-  updateRowsCount = (): void => {
+  private updateRowsCount = (): void => {
     this.totalRowCount = this.gridApi.getDisplayedRowCount();
     this.selectedRowsCount = this.gridApi.getSelectedRows().length;
   }
 
   switchSelectionMode(): void {
     const checkboxColId = CheckboxCol.colId;
+    this.columnAPi.setColumnVisible(checkboxColId, this.checkboxColumnPropertyHide);
     this.checkboxColumnPropertyHide = !this.checkboxColumnPropertyHide;
-    this.columnAPi.setColumnVisible(checkboxColId, !this.checkboxColumnPropertyHide);
     this.gridApi.deselectAll();
   }
 

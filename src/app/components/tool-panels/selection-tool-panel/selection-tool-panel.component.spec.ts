@@ -39,17 +39,20 @@ describe('SelectionToolPanelComponent', () => {
   });
 
   it('totalRowCount should be falsy before changes', () => {
-    expect(component.totalRowCount).toBeFalsy();
+    expect(component.totalRowCount).toBe(0);
   });
 
   it('selectedRowsCount should be falsy before changes', () => {
-    expect(component.selectedRowsCount).toBeFalsy();
+    expect(component.selectedRowsCount).toBe(0);
+  });
+
+  it('checkboxColumnPropertyHide should be falsy before changes', () => {
+    expect(component.checkboxColumnPropertyHide).toBe(checkboxCol.hide);
   });
 
   it('setColumnVisible() should called with right arguments', () => {
-    component.getValueOfPropertyHide();
     component.switchSelectionMode();
-    expect(columnApi.setColumnVisible).toHaveBeenCalledWith(checkboxCol.colId, false);
+    expect(columnApi.setColumnVisible).toHaveBeenCalledWith(checkboxCol.colId, checkboxCol.hide);
   });
 
 });

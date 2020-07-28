@@ -15,9 +15,7 @@ import { Column, GetContextMenuItemsParams, MenuItemDef } from 'ag-grid-communit
 describe('TestGridComponent', () => {
   let component: TestGridComponent;
   let fixture: ComponentFixture<TestGridComponent>;
-  let linkServiceSpyObject: jasmine.SpyObj<any>;
   let linkService: LinkService;
-  let linkServiceSpy: jasmine.Spy;
   let column: jasmine.SpyObj<Column>;
 
 
@@ -40,7 +38,12 @@ describe('TestGridComponent', () => {
           SelectionToolPanelComponent,
           CheckboxCellComponent])
       ],
-      providers: [LinkService]
+      providers: [
+        {
+          provide: LinkService,
+          useValue: jasmine.createSpyObj('LinkService', ['openInNewTab'])
+        }
+      ]
     })
       .compileComponents();
   }));
@@ -48,17 +51,11 @@ describe('TestGridComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(TestGridComponent);
     component = fixture.componentInstance;
-    linkServiceSpyObject = jasmine.createSpyObj('LinkService',
-      { openInNewTab: 'Opening is successful' });
     linkService = fixture.debugElement.injector.get(LinkService);
-    linkServiceSpy = spyOn(linkService, 'openInNewTab');
     column = jasmine.createSpyObj('column', ['getColId']);
     fixture.detectChanges();
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
   it('should create', () => {
     expect(component).toBeTruthy();
   });
