@@ -10,16 +10,14 @@ import { CheckboxCol } from '../../../constants/col-definitions/checkbox-column'
 export class SelectionToolPanelComponent implements IToolPanel, OnDestroy {
 
   private gridApi: GridApi;
-  private columnAPi: ColumnApi;
-  public checkboxColumnPropertyHide: boolean = CheckboxCol.hide;
-  public totalRowCount: number;
-  public selectedRowsCount: number;
+  private columnApi: ColumnApi;
+  public checkboxColumnPropertyHide = CheckboxCol.hide;
+  public totalRowCount = 0;
+  public selectedRowsCount = 0;
 
   agInit(params: IToolPanelParams): void {
     this.gridApi = params.api;
-    this.columnAPi = params.columnApi;
-    this.totalRowCount = 0;
-    this.selectedRowsCount = 0;
+    this.columnApi = params.columnApi;
     this.gridApi.addEventListener(
       'modelUpdated',
       this.updateRowsCount);
@@ -34,10 +32,10 @@ export class SelectionToolPanelComponent implements IToolPanel, OnDestroy {
     this.selectedRowsCount = this.gridApi.getSelectedRows().length;
   }
 
-  switchSelectionMode(): void {
+  toggleSelectionMode(): void {
     const checkboxColId = CheckboxCol.colId;
-    this.columnAPi.setColumnVisible(checkboxColId, this.checkboxColumnPropertyHide);
     this.checkboxColumnPropertyHide = !this.checkboxColumnPropertyHide;
+    this.columnApi.setColumnVisible(checkboxColId, !this.checkboxColumnPropertyHide);
     this.gridApi.deselectAll();
   }
 

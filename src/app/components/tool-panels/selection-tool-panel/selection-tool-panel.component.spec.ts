@@ -51,8 +51,10 @@ describe('SelectionToolPanelComponent', () => {
   });
 
   it('setColumnVisible() should called with right arguments', () => {
-    component.switchSelectionMode();
+    component.toggleSelectionMode();
     expect(columnApi.setColumnVisible).toHaveBeenCalledWith(checkboxCol.colId, checkboxCol.hide);
+    component.toggleSelectionMode();
+    expect(columnApi.setColumnVisible).toHaveBeenCalledWith(checkboxCol.colId, !checkboxCol.hide);
   });
 
 });

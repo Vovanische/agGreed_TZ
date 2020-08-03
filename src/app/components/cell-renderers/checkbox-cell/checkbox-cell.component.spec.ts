@@ -10,6 +10,7 @@ describe('CheckboxCellComponent', () => {
   let api: GridApi;
   let node: RowNode;
   let params: ICellRendererParams;
+  let publisher: Publisher;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -23,12 +24,15 @@ describe('CheckboxCellComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(CheckboxCellComponent);
     component = fixture.componentInstance;
-    api = jasmine.createSpyObj('api', ['addEventListener', 'removeEventListener']);
+    api = jasmine.createSpyObj('api', ['removeEventListener']);
+    publisher = new Publisher();
+    api.addEventListener = (eventName, handler: () => void) => publisher.subscribe(eventName, handler);
     node = jasmine.createSpyObj('node', {
       setSelected: '',
       isSelected: true
     });
     params = { api, node } as unknown as ICellRendererParams;
+
     component.agInit(params);
     fixture.detectChanges();
   });
@@ -49,9 +53,6 @@ describe('CheckboxCellComponent', () => {
   });
 
   it('rowCheckboxState should become true on event selectionChanged ', () => {
-    const publisher = new Publisher();
-    api.addEventListener = (eventName, handler) => publisher.subscribe(eventName, handler);
-    component.agInit(params);
     publisher.emit('selectionChanged');
     expect(component.rowCheckboxState).toBe(true);
   });

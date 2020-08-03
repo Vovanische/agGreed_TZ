@@ -1,19 +1,20 @@
 export class Publisher {
   handlers = {};
 
-  subscribe(eventName, eventHandler): void {
+  subscribe(eventName: string, eventHandler: () => void): void {
     const currentEventHandlers = this.handlers[eventName];
-    if (currentEventHandlers && currentEventHandlers.any(handler => handler !== eventHandler)) {
+    if (currentEventHandlers
+      && currentEventHandlers.any((handler: () => void) => handler !== eventHandler)) {
       currentEventHandlers.push(eventHandler);
     } else {
       this.handlers[eventName] = [eventHandler];
     }
   }
 
-  emit(eventName): void {
+  emit(eventName: string): void {
     const currentEventHandlers = this.handlers[eventName];
     if (currentEventHandlers) {
-      currentEventHandlers.forEach(handler => handler());
+      currentEventHandlers.forEach((handler: () => void) => handler());
     }
   }
 }

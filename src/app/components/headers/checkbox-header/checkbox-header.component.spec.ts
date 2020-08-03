@@ -9,6 +9,7 @@ describe('CheckboxHeaderComponent', () => {
   let fixture: ComponentFixture<CheckboxHeaderComponent>;
   let api: GridApi;
   let params: IHeaderParams;
+  let publisher: Publisher;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -31,6 +32,8 @@ describe('CheckboxHeaderComponent', () => {
         getDisplayedRowCount: 1,
         getSelectedRows: [1]
       });
+    publisher = new Publisher();
+    api.addEventListener = (eventName, handler: () => void) => publisher.subscribe(eventName, handler);
     params = { api } as unknown as IHeaderParams;
     component.agInit(params);
     fixture.detectChanges();
@@ -60,9 +63,6 @@ describe('CheckboxHeaderComponent', () => {
   });
 
   it('rowCheckboxState should become true on event selectionChanged ', () => {
-    const publisher = new Publisher();
-    api.addEventListener = (eventName, handler) => publisher.subscribe(eventName, handler);
-    component.agInit(params);
     publisher.emit('selectionChanged');
     expect(component.headerCheckboxState).toBe(true);
   });
