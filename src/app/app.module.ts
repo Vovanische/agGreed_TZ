@@ -11,6 +11,7 @@ import { VideoTitleComponent } from './components/cell-renderers/video-title/vid
 import { CheckboxHeaderComponent } from './components/headers/checkbox-header/checkbox-header.component';
 import { SelectionToolPanelComponent } from './components/tool-panels/selection-tool-panel/selection-tool-panel.component';
 import { CheckboxCellComponent } from './components/cell-renderers/checkbox-cell/checkbox-cell.component';
+import { PublishedDateComponent } from './components/cell-renderers/published-date/published-date.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { CheckboxCellComponent } from './components/cell-renderers/checkbox-cell
     VideoTitleComponent,
     CheckboxHeaderComponent,
     SelectionToolPanelComponent,
-    CheckboxCellComponent
+    CheckboxCellComponent,
+    PublishedDateComponent
   ],
   imports: [
     BrowserModule,
@@ -31,7 +33,8 @@ import { CheckboxCellComponent } from './components/cell-renderers/checkbox-cell
       VideoTitleComponent,
       CheckboxHeaderComponent,
       SelectionToolPanelComponent,
-      CheckboxCellComponent
+      CheckboxCellComponent,
+      PublishedDateComponent
     ])
   ],
   providers: [],

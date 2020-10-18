@@ -4,7 +4,7 @@ import { ColDef } from 'ag-grid-community';
 export const ThumbnailsCol: ColDef = {
   headerName: '',
   field: 'thumbnails',
-  maxWidth: 70,
+  maxWidth: 120,
   sortable: false,
   cellRendererFramework: ImageThumbnailsComponent
 };

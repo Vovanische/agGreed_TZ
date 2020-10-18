@@ -1,4 +1,4 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component } from '@angular/core';
 import { GridApi, ICellRendererParams, RowNode } from 'ag-grid-community';
 import { ICellRendererAngularComp } from 'ag-grid-angular';
 
@@ -7,22 +7,17 @@ import { ICellRendererAngularComp } from 'ag-grid-angular';
   templateUrl: './checkbox-cell.component.html',
   styleUrls: ['./checkbox-cell.component.scss']
 })
-export class CheckboxCellComponent implements ICellRendererAngularComp, OnDestroy {
+export class CheckboxCellComponent implements ICellRendererAngularComp {
 
   private api: GridApi;
   private node: RowNode;
-  public rowCheckboxState = false;
 
   agInit(params: ICellRendererParams): void {
     this.api = params.api;
     this.node = params.node;
-    this.api.addEventListener('selectionChanged',
-      this.checkRowSelection);
   }
 
-  private checkRowSelection = (): void => {
-    this.rowCheckboxState = this.node.isSelected();
-  }
+  public rowCheckboxState = (): boolean => { return this.node.isSelected(); };
 
   onRowCheckboxStateChange(checkboxState: boolean): void {
     this.node.setSelected(checkboxState);
@@ -30,10 +25,6 @@ export class CheckboxCellComponent implements ICellRendererAngularComp, OnDestro
 
   refresh(): boolean {
     return false;
-  }
-
-  ngOnDestroy(): void {
-    this.api.removeEventListener('selectionChanged', this.checkRowSelection);
   }
 
 }

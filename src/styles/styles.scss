@@ -1,0 +1,14 @@
+@import "../../node_modules/ag-grid-community/src/styles/ag-grid";
+@import "../../node_modules/ag-grid-community/src/styles/ag-theme-alpine/sass/ag-theme-alpine-mixin";
+@import "../../node_modules/ag-grid-community/src/styles/ag-theme-balham/sass/ag-theme-balham-mixin";
+
+@import "_variables.scss";
+
+.ag-theme-balham {
+  @include ag-theme-balham();
+}
+
+.v-table-size {
+  width: 95vw;
+  height: 100vh;
+}

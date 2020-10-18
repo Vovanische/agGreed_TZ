@@ -1,16 +1,17 @@
 import { Component } from '@angular/core';
-import { ICellRendererParams } from 'ag-grid-community';
 import { ICellRendererAngularComp } from 'ag-grid-angular';
+import { ICellRendererParams } from 'ag-grid-community';
 
 @Component({
-  selector: 'app-image-thumbnails',
-  templateUrl: './image-thumbnails.component.html',
-  styleUrls: ['./image-thumbnails.component.scss']
+  selector: 'app-published-date',
+  templateUrl: './published-date.component.html',
+  styleUrls: ['./published-date.component.scss']
 })
-export class ImageThumbnailsComponent implements ICellRendererAngularComp {
+export class PublishedDateComponent implements ICellRendererAngularComp {
+
   params: ICellRendererParams;
 
-  get imageSource(): string {
+  get publishingDate(): string {
     return this.params && this.params.value;
   }
 
@@ -21,4 +22,5 @@ export class ImageThumbnailsComponent implements ICellRendererAngularComp {
   refresh(): boolean {
     return false;
   }
+
 }

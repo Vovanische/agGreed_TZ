@@ -10,8 +10,8 @@ import { ICellRendererAngularComp } from 'ag-grid-angular';
 export class VideoTitleComponent implements ICellRendererAngularComp {
   params: ICellRendererParams;
 
-  get value(): string {
-    return this.params && this.params.value;
+  get videoTitleLink(): string {
+    return (this.params && this.params.value);
   }
 
   agInit(params: ICellRendererParams): void {

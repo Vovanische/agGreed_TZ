@@ -12,6 +12,8 @@ export class GridDataService {
   constructor(private http: HttpClient) { }
 
   getData(): Observable<IVideoDataModel> {
-    return this.http.get<IVideoDataModel>(LinkConstants.dataSource);
+    // return this.http.get<IVideoDataModel>(LinkConstants.dataSource);
+    return this.http.get<IVideoDataModel>('../assets/linkData.json');
+
   }
 }

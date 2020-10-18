@@ -25,12 +25,12 @@ describe('ImageThumbnailsComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('value should be falsy before changes', () => {
-    expect(component.value).toBeFalsy();
+  it('imageSource should be falsy before changes', () => {
+    expect(component.imageSource).toBeFalsy();
   });
 
-  it('value() should return correct value', () => {
+  it('imageSource() should return correct value', () => {
     component.agInit(params as unknown as ICellRendererParams);
-    expect(component.value).toEqual(params.value);
+    expect(component.imageSource).toEqual(params.value);
   });
 });
