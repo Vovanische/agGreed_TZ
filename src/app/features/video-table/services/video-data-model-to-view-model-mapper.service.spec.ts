@@ -2,10 +2,12 @@ import { TestBed } from '@angular/core/testing';
 
 import { VideoDataModelToViewModelMapperService } from './video-data-model-to-view-model-mapper.service';
 import { IVideoViewModel } from '../models/i-video-view-model';
-import { IVideoDataModel } from '../models/i-video-data-model';
+import { IVideoDataModel } from '../../../core/models/i-video-data-model';
 
-describe('DataParserService', () => {
-  beforeEach(() => TestBed.configureTestingModule({}));
+describe('VideoDataModelToViewModelMapperService', () => {
+  beforeEach(() => TestBed.configureTestingModule({
+    providers: [VideoDataModelToViewModelMapperService]
+  }));
 
   it('should be created', () => {
     const service: VideoDataModelToViewModelMapperService = TestBed.get(VideoDataModelToViewModelMapperService);

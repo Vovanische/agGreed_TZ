@@ -11,7 +11,7 @@ export class VideoTitleComponent implements ICellRendererAngularComp {
   params: ICellRendererParams;
 
   get videoTitleLink(): string {
-    return (this.params && this.params.value);
+    return this.params && this.params.value;
   }
 
   agInit(params: ICellRendererParams): void {

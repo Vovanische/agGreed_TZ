@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CheckboxCellComponent } from './checkbox-cell.component';
 import { GridApi, ICellRendererParams, RowNode } from 'ag-grid-community';
-import { Publisher } from '../../../tests-supply/publisher';
+import { Publisher } from '../../../../../tests-supply/publisher';
 
 describe('CheckboxCellComponent', () => {
   let component: CheckboxCellComponent;
@@ -11,6 +11,7 @@ describe('CheckboxCellComponent', () => {
   let node: RowNode;
   let params: ICellRendererParams;
   let publisher: Publisher;
+  let isSelected;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -27,10 +28,12 @@ describe('CheckboxCellComponent', () => {
     api = jasmine.createSpyObj('api', ['removeEventListener']);
     publisher = new Publisher();
     api.addEventListener = (eventName, handler: () => void) => publisher.subscribe(eventName, handler);
+    isSelected = false;
     node = jasmine.createSpyObj('node', {
       setSelected: '',
-      isSelected: true
+      isSelected
     });
+
     params = { api, node } as unknown as ICellRendererParams;
 
     component.agInit(params);
@@ -42,7 +45,7 @@ describe('CheckboxCellComponent', () => {
   });
 
   it('rowCheckboxState should be false before changes', () => {
-    expect(component.rowCheckboxState).toBeFalsy();
+    expect(component.rowCheckboxState()).toBeFalsy();
   });
 
   it('setSelected() should call with correct params', () => {
@@ -50,11 +53,6 @@ describe('CheckboxCellComponent', () => {
     expect(node.setSelected).toHaveBeenCalledWith(true);
     component.onRowCheckboxStateChange(false);
     expect(node.setSelected).toHaveBeenCalledWith(false);
-  });
-
-  it('rowCheckboxState should become true on event selectionChanged ', () => {
-    publisher.emit('selectionChanged');
-    expect(component.rowCheckboxState).toBe(true);
   });
 
 });

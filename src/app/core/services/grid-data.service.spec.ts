@@ -2,7 +2,7 @@ import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 
 import { GridDataService } from './grid-data.service';
-import { LinkConstants } from '../constants/link-constants';
+import { LinkConstants } from '../../features/video-table/constants/link-constants';
 import { IVideoDataModel } from '../models/i-video-data-model';
 
 describe('GridDataService', () => {

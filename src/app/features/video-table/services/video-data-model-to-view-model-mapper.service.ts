@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { IVideoViewModel } from '../models/i-video-view-model';
 import { LinkConstants } from '../constants/link-constants';
-import { IVideoDataModel } from '../models/i-video-data-model';
+import { IVideoDataModel } from '../../../core/models/i-video-data-model';
 
-@Injectable({
-  providedIn: 'root'
-})
+
+@Injectable()
+
 export class VideoDataModelToViewModelMapperService {
 
   map(data: IVideoDataModel): IVideoViewModel[] {

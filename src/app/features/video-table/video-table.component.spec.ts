@@ -1,20 +1,21 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TestGridComponent } from './test-grid.component';
+import { VideoTableComponent } from './video-table.component';
 import { AgGridModule } from 'ag-grid-angular';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 
-import { ImageThumbnailsComponent } from './cell-renderers/image-thumbnails/image-thumbnails.component';
-import { VideoTitleComponent } from './cell-renderers/video-title/video-title.component';
-import { CheckboxHeaderComponent } from './headers/checkbox-header/checkbox-header.component';
-import { SelectionToolPanelComponent } from './tool-panels/selection-tool-panel/selection-tool-panel.component';
-import { CheckboxCellComponent } from './cell-renderers/checkbox-cell/checkbox-cell.component';
-import { LinkService } from '../services/link.service';
+import { ImageThumbnailsComponent } from './components/cell-renderers/image-thumbnails/image-thumbnails.component';
+import { VideoTitleComponent } from './components/cell-renderers/video-title/video-title.component';
+import { CheckboxHeaderComponent } from './components/headers/checkbox-header/checkbox-header.component';
+import { SelectionToolPanelComponent } from './components/tool-panels/selection-tool-panel/selection-tool-panel.component';
+import { CheckboxCellComponent } from './components/cell-renderers/checkbox-cell/checkbox-cell.component';
+import { LinkService } from '../../core/services/link.service';
 import { Column, GetContextMenuItemsParams, MenuItemDef } from 'ag-grid-community';
+import { VideoDataModelToViewModelMapperService } from './services/video-data-model-to-view-model-mapper.service';
 
-describe('TestGridComponent', () => {
-  let component: TestGridComponent;
-  let fixture: ComponentFixture<TestGridComponent>;
+describe('VideoTableComponent', () => {
+  let component: VideoTableComponent;
+  let fixture: ComponentFixture<VideoTableComponent>;
   let linkService: LinkService;
   let column: jasmine.SpyObj<Column>;
 
@@ -22,7 +23,7 @@ describe('TestGridComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
-        TestGridComponent,
+        VideoTableComponent,
         ImageThumbnailsComponent,
         VideoTitleComponent,
         CheckboxHeaderComponent,
@@ -49,7 +50,7 @@ describe('TestGridComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(TestGridComponent);
+    fixture = TestBed.createComponent(VideoTableComponent);
     component = fixture.componentInstance;
     linkService = fixture.debugElement.injector.get(LinkService);
     column = jasmine.createSpyObj('column', ['getColId']);

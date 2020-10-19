@@ -3,25 +3,26 @@ import { Subscription, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { AllModules } from '@ag-grid-enterprise/all-modules/dist/ag-grid-enterprise.js';
 
-import { GridDataService } from '../services/grid-data.service';
-import { VideoDataModelToViewModelMapperService } from '../services/video-data-model-to-view-model-mapper.service';
+import { GridDataService } from '../../core/services/grid-data.service';
+import { VideoDataModelToViewModelMapperService } from './services/video-data-model-to-view-model-mapper.service';
 import { GetContextMenuItems, GetContextMenuItemsParams, GridOptions, MenuItemDef, Module } from 'ag-grid-community';
-import { LinkService } from '../services/link.service';
-import { CheckboxCol } from '../constants/col-definitions/checkbox-column';
-import { ThumbnailsCol } from '../constants/col-definitions/thumbnails-column';
-import { PublishedAtCol } from '../constants/col-definitions/published-at-column';
-import { TitleCol } from '../constants/col-definitions/title-column';
-import { DescriptionCol } from '../constants/col-definitions/description-column';
-import { IVideoViewModel } from '../models/i-video-view-model';
-import { SideBar } from '../constants/side-bar-config';
-import { IVideoDataModel } from '../models/i-video-data-model';
+import { LinkService } from '../../core/services/link.service';
+import { CheckboxCol } from './constants/col-definitions/checkbox-column';
+import { ThumbnailsCol } from './constants/col-definitions/thumbnails-column';
+import { PublishedAtCol } from './constants/col-definitions/published-at-column';
+import { TitleCol } from './constants/col-definitions/title-column';
+import { DescriptionCol } from './constants/col-definitions/description-column';
+import { IVideoViewModel } from './models/i-video-view-model';
+import { SideBar } from './constants/side-bar-config';
+import { IVideoDataModel } from '../../core/models/i-video-data-model';
 
 @Component({
-  selector: 'app-test-grid',
-  templateUrl: './test-grid.component.html',
-  styleUrls: ['./test-grid.component.scss']
+  selector: 'app-video-table',
+  templateUrl: './video-table.component.html',
+  styleUrls: ['./video-table.component.scss'],
+  providers: [VideoDataModelToViewModelMapperService]
 })
-export class TestGridComponent implements OnInit, OnDestroy {
+export class VideoTableComponent implements OnInit, OnDestroy {
 
   constructor(private gridData: GridDataService,
               private mapDataToRowModel: VideoDataModelToViewModelMapperService,

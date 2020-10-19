@@ -27,11 +27,11 @@ describe('VideoTitleComponent', () => {
   });
 
   it('value should be falsy before changes', () => {
-    expect(component.value).toBeFalsy();
+    expect(component.videoTitleLink).toBeFalsy();
   });
 
   it('value() should return value', () => {
     component.agInit(params as unknown as ICellRendererParams);
-    expect(component.value).toEqual(params.value);
+    expect(component.videoTitleLink).toEqual(params.value);
   });
 });

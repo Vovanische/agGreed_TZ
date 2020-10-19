@@ -17,7 +17,7 @@ export class CheckboxCellComponent implements ICellRendererAngularComp {
     this.node = params.node;
   }
 
-  public rowCheckboxState = (): boolean => { return this.node.isSelected(); };
+  public rowCheckboxState = (): boolean => this.node.isSelected();
 
   onRowCheckboxStateChange(checkboxState: boolean): void {
     this.node.setSelected(checkboxState);
