@@ -4,14 +4,14 @@ import { VideoTableComponent } from './video-table.component';
 import { AgGridModule } from 'ag-grid-angular';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 
-import { ImageThumbnailsComponent } from './components/cell-renderers/image-thumbnails/image-thumbnails.component';
-import { VideoTitleComponent } from './components/cell-renderers/video-title/video-title.component';
-import { CheckboxHeaderComponent } from './components/headers/checkbox-header/checkbox-header.component';
-import { SelectionToolPanelComponent } from './components/tool-panels/selection-tool-panel/selection-tool-panel.component';
-import { CheckboxCellComponent } from './components/cell-renderers/checkbox-cell/checkbox-cell.component';
-import { LinkService } from '../../core/services/link.service';
+import { ImageThumbnailsComponent } from '../cell-renderers/image-thumbnails/image-thumbnails.component';
+import { VideoTitleComponent } from '../cell-renderers/video-title/video-title.component';
+import { CheckboxHeaderComponent } from '../headers/checkbox-header/checkbox-header.component';
+import { SelectionToolPanelComponent } from '../tool-panels/selection-tool-panel/selection-tool-panel.component';
+import { CheckboxCellComponent } from '../cell-renderers/checkbox-cell/checkbox-cell.component';
+import { LinkService } from '../../../../core/services/link.service';
 import { Column, GetContextMenuItemsParams, MenuItemDef } from 'ag-grid-community';
-import { VideoDataModelToViewModelMapperService } from './services/video-data-model-to-view-model-mapper.service';
+import { VideoDataModelToViewModelMapperService } from '../../services/video-data-model-to-view-model-mapper.service';
 
 describe('VideoTableComponent', () => {
   let component: VideoTableComponent;

@@ -7,8 +7,15 @@ import { CheckboxHeaderComponent } from './components/headers/checkbox-header/ch
 import { SelectionToolPanelComponent } from './components/tool-panels/selection-tool-panel/selection-tool-panel.component';
 import { CheckboxCellComponent } from './components/cell-renderers/checkbox-cell/checkbox-cell.component';
 import { PublishedDateComponent } from './components/cell-renderers/published-date/published-date.component';
-import { VideoTableComponent } from './video-table.component';
+import { VideoTableComponent } from './components/video-table/video-table.component';
+import { RouterModule, Routes } from '@angular/router';
 
+const videoTableRoutes: Routes = [
+  {
+    path: '',
+    component: VideoTableComponent
+  }
+];
 
 @NgModule({
   declarations: [
@@ -22,6 +29,7 @@ import { VideoTableComponent } from './video-table.component';
   ],
   imports: [
     CommonModule,
+    RouterModule.forChild(videoTableRoutes),
     AgGridModule.withComponents([
       ImageThumbnailsComponent,
       VideoTitleComponent,

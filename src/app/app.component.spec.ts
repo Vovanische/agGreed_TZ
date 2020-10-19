@@ -4,7 +4,7 @@ import { AgGridModule } from 'ag-grid-angular';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 import { AppComponent } from './app.component';
-import { VideoTableComponent } from './features/video-table/video-table.component';
+import { VideoTableComponent } from './features/video-table/components/video-table/video-table.component';
 
 describe('AppComponent', () => {
   beforeEach(async(() => {

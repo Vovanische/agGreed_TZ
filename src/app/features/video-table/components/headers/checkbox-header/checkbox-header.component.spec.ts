@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CheckboxHeaderComponent } from './checkbox-header.component';
 import { GridApi, IHeaderParams } from 'ag-grid-community';
-import { Publisher } from '../../../../../tests-supply/publisher';
+import { Publisher } from '../../../../../tests-utils/publisher';
 
 describe('CheckboxHeaderComponent', () => {
   let component: CheckboxHeaderComponent;

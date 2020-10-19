@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CheckboxCellComponent } from './checkbox-cell.component';
 import { GridApi, ICellRendererParams, RowNode } from 'ag-grid-community';
-import { Publisher } from '../../../../../tests-supply/publisher';
+import { Publisher } from '../../../../../tests-utils/publisher';
 
 describe('CheckboxCellComponent', () => {
   let component: CheckboxCellComponent;
