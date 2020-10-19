@@ -11,7 +11,6 @@ import { SelectionToolPanelComponent } from '../tool-panels/selection-tool-panel
 import { CheckboxCellComponent } from '../cell-renderers/checkbox-cell/checkbox-cell.component';
 import { LinkService } from '../../../../core/services/link.service';
 import { Column, GetContextMenuItemsParams, MenuItemDef } from 'ag-grid-community';
-import { VideoDataModelToViewModelMapperService } from '../../services/video-data-model-to-view-model-mapper.service';
 
 describe('VideoTableComponent', () => {
   let component: VideoTableComponent;
