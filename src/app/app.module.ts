@@ -15,7 +15,6 @@ import { CoreModule } from './core/core.module';
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
-    VideoTableModule,
     CoreModule
   ],
   providers: [],
